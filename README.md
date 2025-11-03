@@ -50,3 +50,41 @@ add_filter( 'up_define_inner_block_default_rules', function( $rules ) {
 ```
 
 Dans cet exemple, tout bouton inséré dans un groupe ayant la classe `is-style-section-3` prendra automatiquement la variation `is-style-outline`, même si un bloc `core/buttons` se situe entre les deux.
+
+## Exemple avec ajout de classes supplémentaires
+```php
+<?php
+add_filter( 'up_define_inner_block_default_rules', function( $rules ) {
+    $rules[] = [
+        'block'        => 'core/paragraph',
+        'parent'       => 'core/group',
+        'parent_class' => 'is-style-highlight-wrapper',
+        'classes'      => [ 'has-text-color', 'has-yellow-color' ],
+    ];
+    return $rules;
+});
+```
+
+Ce réglage ajoute automatiquement les classes `has-text-color` et `has-yellow-color` à chaque paragraphe inséré dans un groupe stylisé avec `is-style-highlight-wrapper`.
+
+## Exemple complet avec attributs personnalisés
+```php
+<?php
+add_filter( 'up_define_inner_block_default_rules', function( $rules ) {
+    $rules[] = [
+        'block'            => 'core/heading',
+        'parent'           => 'core/group',
+        'parent_classes'   => [ 'is-style-section-hero', 'has-background' ],
+        'variation'        => 'hero-heading',
+        'addClasses'       => [ 'is-uppercase', 'has-extra-spacing' ],
+        'attributes'       => [
+            'textAlign' => 'center',
+            'className' => [ 'has-text-color', 'has-white-color' ],
+        ],
+        'match_ancestors'  => true,
+    ];
+    return $rules;
+});
+```
+
+Ici, chaque titre inséré dans la section héro reçoit la variation `is-style-hero-heading`, les classes supplémentaires `is-uppercase` et `has-extra-spacing`, ainsi que les attributs `textAlign` et `className` fournis.

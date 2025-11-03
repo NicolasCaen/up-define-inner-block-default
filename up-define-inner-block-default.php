@@ -121,7 +121,11 @@ class Up_Define_Inner_Block_Default {
             if (!is_string($key)) {
                 continue;
             }
-            $attrKey = sanitize_key($key);
+            $attrKey = preg_replace('/[^A-Za-z0-9_-]/', '', $key);
+            if ($attrKey === null) {
+                continue;
+            }
+            $attrKey = trim($attrKey);
             if ($attrKey === '') {
                 continue;
             }
